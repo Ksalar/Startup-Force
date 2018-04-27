@@ -1,9 +1,11 @@
-import { MESSAGE_USER, GET_MESSAGES } from '../actions/types.js';
+import { MESSAGE_USER, GET_MESSAGES, GET_NOTIFICATIONS, CLEAR_NOTIFICATIONS, NOTIFICATION_COUNT } from '../actions/types.js';
 import firebase from '../firebase.js';
 
 const initialState = {
   messages: [`Send some messages!`],
-  messageUserId: null
+  messageUserId: null,
+  notifications: {},
+  notificationCount: null
 };
 
 function messageReducer(state = initialState, action) {
@@ -22,6 +24,18 @@ function messageReducer(state = initialState, action) {
           messages: [`Send some messages!`]
         });
       }
+    case GET_NOTIFICATIONS:
+      return Object.assign({}, state, {
+        notifications: action.payload
+      });
+    case CLEAR_NOTIFICATIONS:
+      return Object.assign({}, state, {
+        notifications: {}
+      });
+    case NOTIFICATION_COUNT:
+      return Object.assign({}, state, {
+        notificationCount: action.payload
+      });
   default:
     return state;
   }
